@@ -41,15 +41,17 @@ public class PlatformController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray.origin, ray.direction * 20, out hit))
+            {
 
                 if (hit.transform.gameObject.CompareTag("Background"))
                 {
                     onBackGroundHit(hit);
                 }
-                else if(hit.transform.gameObject.CompareTag("Platform")){
+                else if (hit.transform.gameObject.CompareTag("Platform"))
+                {
                     hit.transform.gameObject.GetComponent<Platform>().Lock();
                 }
-          
+            }
         }
     }
     void onBackGroundHit(RaycastHit hit)
