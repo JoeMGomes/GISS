@@ -9,6 +9,7 @@ public class Platform : MonoBehaviour
     public Material normalMat;
     public Material lockedMat;
     MeshRenderer meshRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +26,15 @@ public class Platform : MonoBehaviour
     {
         return locked;
     }
-     public void Lock()
+    public void Lock()
     {
         locked = !locked;
+        meshRenderer.material = locked ? lockedMat : normalMat;
+
+    }
+    public void Lock(bool toLock)
+    {
+        locked = toLock;
         meshRenderer.material = locked ? lockedMat : normalMat;
 
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 802161020727233277}
   - component: {fileID: 802161020727233273}
   m_Layer: 0
-  m_Name: LongCube 1
+  m_Name: FastCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dd724005e25c768449d9cda44553275a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8082550ce14156449d850048d0c456a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NORMAL_SPEED: -6
+  NORMAL_SPEED: -15
   fillPerSec: 10
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   fullColor: {r: 1, g: 0, b: 0, a: 1}
+  _particles: {fileID: 2994049833057877991, guid: bdafa105848a31d4b8915a64b96d5c98, type: 3}

@@ -13,6 +13,9 @@ public class DefaultObstacle : MonoBehaviour
     MeshRenderer meshRenderer;
     public Color normalColor, fullColor;
 
+
+    public GameObject _particles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +30,17 @@ public class DefaultObstacle : MonoBehaviour
         if (locked)
         {
             filled += fillPerSec * Time.deltaTime;
-            meshRenderer.material.color = Color.Lerp(normalColor, fullColor, filled);
+            Color newColor = Color.Lerp(normalColor, fullColor, filled);
+            meshRenderer.material.color = newColor;
+            meshRenderer.material.SetColor("_EmissionColor", newColor);
         }
 
         if(filled >= 1.0)
         {
+            LevelController.Instance.removeBlockFromLevel(gameObject);
+            SoundManager.Instance.PlaySound(SoundManager.Sound.DestroyBlock);
+            GameObject p = Instantiate(_particles, transform.position, transform.rotation);
+            p.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             Destroy(gameObject);
         }
     }
@@ -42,7 +51,8 @@ public class DefaultObstacle : MonoBehaviour
 
         if (other.gameObject.CompareTag("Floor"))
         {
-            Debug.Log("Hit Floor");
+            LevelController.Instance.loseLife();
+            LevelController.Instance.removeBlockFromLevel(gameObject);
             Destroy(gameObject);
         }
 

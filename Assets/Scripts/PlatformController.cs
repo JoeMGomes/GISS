@@ -11,9 +11,31 @@ public class PlatformController : MonoBehaviour
 
     public int MAX_PLATFORMS = 3;
 
+
+    private static PlatformController _instance;
+
+    public static PlatformController Instance
+    {
+        get
+        {   
+            if (_instance == null)
+            {
+                GameObject go = new GameObject("PlatformCotnroller");
+                go.AddComponent<PlatformController>();
+            }
+
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
+
         platformPool = new List<Platform>();
 
         if (platPrefab == null)
@@ -30,6 +52,7 @@ public class PlatformController : MonoBehaviour
 
             }
         }
+
     }
 
     // Update is called once per frame
@@ -50,10 +73,22 @@ public class PlatformController : MonoBehaviour
                 else if (hit.transform.gameObject.CompareTag("Platform"))
                 {
                     hit.transform.gameObject.GetComponent<Platform>().Lock();
+                    SoundManager.Instance.PlaySound(SoundManager.Sound.LockPlat);
                 }
             }
         }
     }
+
+
+    public void resetPlatforms()
+    {
+         foreach(Platform p in platformPool)
+        {
+            p.gameObject.transform.position = new Vector3(0, 0, -100);
+            p.Lock(false);
+        }
+    }
+
     void onBackGroundHit(RaycastHit hit)
     {
         for (int i = 0; i < MAX_PLATFORMS; i++)
